@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Page</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+  <h3>Websocket GO</h1>
+  <pre id="Output"></pre>
+<script>
+    url="ws://localhost:9000/ws";
+    c=new WebSocket(url); //client
+    send=function(data){
+        $('#Output').append((new Date())+"==>"+data+"\n");
+        c.send(data);
+    }
+    c.onmessage =function(msg){
+        $('#Output').append((new Date())+"<=="+msg.data+"\n");
+    }
+
+    c.onopen =function(){
+        setInterval(
+            function(){
+                send("ping");
+            },1000
+        );
+    }
+
+</script>
+
+</body>
+</html>
